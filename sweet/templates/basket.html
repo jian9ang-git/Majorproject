@@ -1,0 +1,13 @@
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+<p>Корзина</p>
+{% csrf_token %}
+<form class="container" action="{% url 'home' %}">
+
+      <button>Продолжить покупки</button>
+    </form>
+
+{% endblock %}

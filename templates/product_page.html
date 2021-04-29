@@ -1,0 +1,28 @@
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+{% if product %}
+
+        {% csrf_token %}
+         <tr>
+             <td ><a>{{product.name}}</a></td><br>
+               <td ><a>{{product.description}}</a></td><br>
+               <td ><a>{{product.price}}р за 1кг</a></td><br>
+               <td ><a>В наличии {{product.in_stock_now}} штук</a></td><br>
+         </tr>
+
+<form class="container" action="{% url 'home' %}">
+      <button>Продолжить покупки</button>
+</form>
+<form class="container" action="{% url 'basket' %}">
+      <button>Перейти в корзину</button>
+</form>
+<form class="container" action="{% url 'final' %}">
+      <button>Перейти к оформлению заказа</button>
+</form>
+
+{% endif %}
+
+{% endblock %}
