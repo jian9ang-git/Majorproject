@@ -13,7 +13,7 @@
 
         {% csrf_token %}
          <tr>
-             <td ><a href="{% url 'category_page' category.id %}">{{category.name}}</a></td>
+             <td ><a href="{% url 'sweet:category_page' category.id %}">{{category.name}}</a></td>
          </tr>
 
 
@@ -23,7 +23,7 @@
 {% endif %}
 
 {% csrf_token %}
-    <form class="container" action="{% url 'basket' %}">
+    <form class="container" action="{% url 'cart:basket' %}">
 
       <button>Перейти в корзину</button>
     </form>

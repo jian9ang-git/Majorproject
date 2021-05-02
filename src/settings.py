@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sweet',
+    'cart',
     'django_extensions',
 ]
 
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'src.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates', 'sweet/templates'],
+        'DIRS': ['templates', 'sweet/templates', 'cart/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
