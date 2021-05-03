@@ -9,13 +9,20 @@
          <tr>
              <td ><a>{{product.name}}</a></td><br>
                <td ><a>{{product.description}}</a></td><br>
-               <td ><a>{{product.price}}р</a></td><br>
                <td ><a>В наличии {{product.in_stock_now}} штук</a></td><br>
          </tr>
+<p class="price">${{ product.price }}</p>
+
+<form action="{% url 'cart:basket_add' product.id %}" method="post">
+    {{ cart_product_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Add to cart">
+</form>
 
 <form class="container" action="{% url 'sweet:home' %}">
       <button>Продолжить покупки</button>
 </form>
+
 <form class="container" action="{% url 'cart:basket' %}">
       <button>Перейти в корзину</button>
 </form>

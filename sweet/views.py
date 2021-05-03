@@ -21,18 +21,13 @@ def category_page(request, category_id):
 
 
 def product_page(request, product_id):
-    if request.method == "POST":
-        pass
-    elif request.method == "GET":
+    if request.method == "GET":
         product = Product.objects.get(id=product_id)
+        cart_product_form = CartAddProductForm()
+        return render(request, 'product_page.html', {'product': product, 'cart_product_form': cart_product_form})
+
+    elif request.method == "POST":
+        product = get_object_or_404(Product,
+                                    id=product_id,
+                                    available=True)
         return render(request, 'product_page.html', {'product': product})
-
-
-def product_detail(request, id, slug):
-    product = get_object_or_404(Product,
-                                id=id,
-                                slug=slug,
-                                available=True)
-    cart_product_form = CartAddProductForm()
-    return render(request, 'sweet/product/basket.html', {'product': product,
-                                                        'cart_product_form': cart_product_form})
