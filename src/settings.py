@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'sweet',
     'cart',
     'django_extensions',
+    'orders',
+
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'src.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates', 'sweet/templates', 'cart/templates'],
+        'DIRS': ['templates', 'sweet/templates', 'cart/templates', 'orders/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },

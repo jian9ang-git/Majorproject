@@ -2,6 +2,18 @@ from django.db import models
 from django.utils import timezone
 
 
+class Adress(models.Model):
+    region = models.CharField(max_length=30)
+    country = models.CharField(max_length=30)
+    city = models.CharField(max_length=30)
+    street = models.CharField(max_length=50)
+    house = models.CharField(max_length=30)
+    post_index = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.city
+
+
 class Category(models.Model):
     name = models.CharField(max_length=30)
     slug = models.SlugField(max_length=200, db_index=True, unique=True, null=True)
@@ -10,18 +22,6 @@ class Category(models.Model):
         ordering = ('name',)
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
-
-
-class Adress(models.Model):
-    region = models.CharField(max_length=30)
-    country = models.CharField(max_length=30)
-    city = models.CharField(max_length=30)
-    street = models.CharField(max_length=50)
-    house = models.CharField(max_length=30)
-    post_index = models.IntegerField()
-
-    def __str__(self):
-        return self.region, self.country, self.city, self.street, self.house, self.post_index
 
 
 class Product(models.Model):
@@ -33,7 +33,7 @@ class Product(models.Model):
         Category,
         null=True,
         on_delete=models.SET_NULL,
-        related_name='products',
+        related_name='product',
     )
     total_orders = models.IntegerField()
     in_stock_now = models.IntegerField()
@@ -49,7 +49,13 @@ class Product(models.Model):
         return self.name
 
 
+#  class AnonimusCustomer(models.Model):
+    #  status = models.CharField(max_length=30, default='anon')
+    #  ip_adress = models.IPAddressField()
+
+
 class Customer(models.Model):
+    #  status = models.CharField(max_length=30, default='registred')
     MALE = 'M'
     FEMALE = 'F'
     OTHER = 'Oth'
@@ -71,22 +77,8 @@ class Customer(models.Model):
     gender = models.CharField(max_length=30, choices=GENDER_CHOICES, default=MALE)
     adresses = models.ManyToManyField(
         Adress,
-        related_name='adresses'
-    )
-
-    delivery_time = models.DateTimeField()
-    comment = models.TextField(max_length=250, blank=True)
-
-    products = models.ManyToManyField(
-        Product,
-        related_name='products'
+        related_name='customer_adresses'
     )
 
     def __str__(self):
         return self.username
-
-
-
-
-
-

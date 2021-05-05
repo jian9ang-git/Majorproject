@@ -1,17 +1,47 @@
+{% extends "base.html" %}
 {% block title %}{% endblock %}
-
 
 {% block content %}
 
 {% if product %}
 
         {% csrf_token %}
+<style>
+   table {
+    width: 50%; /* Ширина таблицы */
+    border: 4px double black; /* Рамка вокруг таблицы */
+    border-collapse: collapse; /* Отображать только одинарные линии */
+   }
+   th {
+    text-align: left; /* Выравнивание по левому краю */
+    background: #ccc; /* Цвет фона ячеек */
+    padding: 5px; /* Поля вокруг содержимого ячеек */
+    border: 1px solid black; /* Граница вокруг ячеек */
+   }
+   td {
+    padding: 5px; /* Поля вокруг содержимого ячеек */
+    border: 1px solid black; /* Граница вокруг ячеек */
+   }
+  </style>
+
+
+    <table class="category_page" >
+        <thead>
+        <tr>
+            <th>Товар</th>
+            <th>Описание</th>
+            <th>Цена за шт</th>
+        </tr>
+        </thead>
+        <tbody>
          <tr>
              <td ><a>{{product.name}}</a></td><br>
-               <td ><a>{{product.description}}</a></td><br>
-               <td ><a>В наличии {{product.in_stock_now}} штук</a></td><br>
+             <td ><a>{{product.description}}</a></td><br>
+             <td ><a>{{ product.price }}р</a></td><br>
          </tr>
-<p class="price">${{ product.price }}</p>
+        <tbody/>
+    </table>
+
 
 <form action="{% url 'cart:basket_add' product.id %}" method="post">
     {{ cart_product_form.as_p }}

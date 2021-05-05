@@ -56,7 +56,7 @@ class Cart(object):
             self.cart[str(product.id)]['product'] = product
 
         for item in self.cart.values():
-            item['price'] = Decimal(item['price'])
+            item['price'] = int(item['price'])
             item['total_price'] = item['price'] * item['quantity']
             yield item
 
@@ -70,7 +70,7 @@ class Cart(object):
         """
         Подсчет стоимости товаров в корзине.
         """
-        return sum(Decimal(item['price']) * item['quantity'] for item in
+        return sum(int(item['price']) * item['quantity'] for item in
                    self.cart.values())
 
     def clear(self):

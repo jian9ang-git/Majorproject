@@ -1,6 +1,6 @@
 from django.shortcuts import render,  get_object_or_404, redirect
 from .models import Customer, Category, Product
-from cart.forms import CartAddProductForm
+from cart.forms import CartAddEditProductForm
 
 
 def home(request):
@@ -8,7 +8,7 @@ def home(request):
         pass
     elif request.method == "GET":
         all_categories = Category.objects.all()
-        return render(request, 'base.html', {'all_categories': all_categories})
+        return render(request, 'categories.html', {'all_categories': all_categories})
 
 
 def category_page(request, category_id):
@@ -23,7 +23,7 @@ def category_page(request, category_id):
 def product_page(request, product_id):
     if request.method == "GET":
         product = Product.objects.get(id=product_id)
-        cart_product_form = CartAddProductForm()
+        cart_product_form = CartAddEditProductForm()
         return render(request, 'product_page.html', {'product': product, 'cart_product_form': cart_product_form})
 
     elif request.method == "POST":

@@ -14,7 +14,11 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
+class AdressAdmin(admin.ModelAdmin):
+    list_display = ['region', 'country', 'city', 'street', 'house', 'post_index']
+
+
 admin.site.register(Customer)
-admin.site.register(Adress)
+admin.site.register(Adress, AdressAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)

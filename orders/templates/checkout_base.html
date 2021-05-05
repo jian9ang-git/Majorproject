@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+<h1>Ваш заказ:</h1>
+
+    <div class="order-info">
+        <style>
+   table {
+    width: 30%; /* Ширина таблицы */
+    border: 4px double black; /* Рамка вокруг таблицы */
+    border-collapse: collapse; /* Отображать только одинарные линии */
+   }
+   th {
+    text-align: left; /* Выравнивание по левому краю */
+    background: #ccc; /* Цвет фона ячеек */
+    padding: 5px; /* Поля вокруг содержимого ячеек */
+    border: 1px solid black; /* Граница вокруг ячеек */
+   }
+   td {
+    padding: 5px; /* Поля вокруг содержимого ячеек */
+    border: 1px solid black; /* Граница вокруг ячеек */
+   }
+  </style>
+        <table>
+            <tr>
+        <h3></h3>
+        <ul>
+            {% for item in cart %}
+
+                    <tr><td>{{ item.product.name }}</td></tr>
+                   <tr><td> {{ item.quantity }}шт</td></tr>
+                   <tr><td> <span>${{ item.total_price }}</span></td></tr>
+
+                   <tr> <td><form action="{% url 'orders:checkout_edit' item.product.id %}" method="post">
+                        {{ cart_product_form.as_p }}
+                        {% csrf_token %}
+                        <input type="submit" value="Изменить количество {{item.product.name}}">
+                    </form></td></tr>
+
+            {% endfor %}
+        </ul>
+        <tr><td><p>Total: ${{ cart.get_total_price }}</p></td></tr>
+            </table>
+    </div>
+
+
+
+    <form action="{% url 'orders:checkout_base'%}" method="post" class="order-form">
+        {{ form.as_p }}
+        <h3><input type="submit" value="Разместить заказ"></h3>
+        {% csrf_token %}
+    </form>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

@@ -1,34 +1,32 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %}</title>
-
+    <meta charset="utf-8"/>
+    <title>{% block title %}My shop{% endblock %}</title>
 </head>
-{% block content %}
-
-{% if all_categories %}
-
-    {% for category in all_categories %}
-
-        {% csrf_token %}
-         <tr>
-             <td ><a href="{% url 'sweet:category_page' category.id %}">{{category.name}}</a></td>
-         </tr>
-
-
-
-    {% endfor %}
-
-{% endif %}
-
-{% csrf_token %}
-    <form class="container" action="{% url 'cart:basket' %}">
-
-      <button>Перейти в корзину</button>
-    </form>
-
-{% endblock %}
-
+<body>
+<div id="header">
+    <a href="/" class="logo">На главную</a>
+</div>
+<div id="subheader">
+    <div class="cart">
+    {% with total_items=cart|length %}
+        {% if cart|length > 0 %}
+            Your cart:
+            <a href="{% url 'cart:basket' %}">
+                {{ total_items }} item{{ total_items|pluralize }},
+                ${{ cart.get_total_price }}
+            </a>
+        {% else %}
+            Your cart is empty.
+        {% endif %}
+    {% endwith %}
+</div>
+</div>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
 </body>
 </html>
+

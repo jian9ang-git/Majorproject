@@ -1,17 +1,32 @@
 
 {% block title %}
-    Your shopping cart
 {% endblock %}
 {% block content %}
-    <h1>Your shopping cart</h1>
-    <table class="cart">
+    <h1>Корзина</h1>
+ <style>
+   table {
+    width: 100%; /* Ширина таблицы */
+    border: 4px double black; /* Рамка вокруг таблицы */
+    border-collapse: collapse; /* Отображать только одинарные линии */
+   }
+   th {
+    text-align: left; /* Выравнивание по левому краю */
+    background: #ccc; /* Цвет фона ячеек */
+    padding: 5px; /* Поля вокруг содержимого ячеек */
+    border: 1px solid black; /* Граница вокруг ячеек */
+   }
+   td {
+    padding: 5px; /* Поля вокруг содержимого ячеек */
+    border: 1px solid black; /* Граница вокруг ячеек */
+   }
+  </style>
+    <table class="cart" >
         <thead>
         <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Remove</th>
-            <th>Unit price</th>
-            <th>Price</th>
+            <th>Товар</th>
+            <th>Количество</th>
+            <th>Удалить</th>
+            <th>Цена за шт</th>
         </tr>
         </thead>
         <tbody>
@@ -22,7 +37,7 @@
                     <td>{{ item.quantity }}</td>
                     <td><a href="{% url 'cart:basket_remove' product.id%}">Remove</a></td>
                     <td class="num">${{ item.price }}</td>
-                    <td class="num">${{ item.total_price }}</td>
+
                 </tr>
             {% endwith %}
         {% endfor %}
@@ -34,7 +49,8 @@
         </tbody>
     </table>
     <p class="text-right">
-        <a href="{% url 'sweet:home' %}" class="button light">Continue shopping</a>
-        <a href="#" class="button">Checkout</a>
+        <a href="/" class="button light">Продолжить покупки</a>
+
+        <a href="{% url 'orders:checkout_base' %}" class="button">Оформить заказ</a>
     </p>
 {% endblock %}
