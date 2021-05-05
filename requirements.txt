@@ -3,4 +3,12 @@ django-heroku==0.3.1
 djangorestframework
 gunicorn
 whitenoise
+django_extensions
+asgiref
+certifi==2020.12.5
+dj-database-url==0.5.0
+Django
+psycopg2
+pytz==2020.1
+sqlparse
 
